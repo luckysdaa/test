@@ -1,0 +1,16 @@
+- id: service-provider-getNumber # 路由的id,没有规定规则但要求唯一,建议配合服务名
+          #匹配后提供服务的路由地址
+          #          uri: http://localhost:8001
+          uri: lb://service-provider #匹配后提供服务的路由地址
+          predicates:
+            - Path=/provider/getNumber/** # 断言，路径相匹配的进行路由(注意**为通配符)
+        - id: service-provider-getInfo
+          #          uri: http://localhost:8001
+          uri: lb://service-provider #匹配后提供服务的路由地址
+          predicates:
+            - Path=/provider/getInfo  #断言,路径相匹配的进行路由
+
+ - id: web-service  # 请求 与断言相匹配则转发到 http://localhost:8080/test
+          uri: lb://web-service
+          predicates:
+            - Path=/web/**
